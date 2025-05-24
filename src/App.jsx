@@ -43,6 +43,15 @@ function App() {
         setEmail("");
       });
   };
+
+  const handleDelete = (id) => {
+    const filteredData = data.filter((user) => user.id !== id);
+    fetch(`http://localhost:4000/users/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then(() => {
+        setData(filteredData);
+      });
+  };
   return (
     <>
       <div className="app">
@@ -94,7 +103,7 @@ function App() {
                 <td>{user.age}</td>
                 <td>{user.email}</td>
                 <td>Edit</td>
-                <td>Delete</td>
+                <td onClick={() => handleDelete(user.id)}>Delete</td>
               </tr>
             ))}
           </tbody>
