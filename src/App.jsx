@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 
 function App() {
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
@@ -19,7 +18,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,15 +53,20 @@ function App() {
   };
   return (
     <>
-      <div className="app">
-        <form onSubmit={handleSubmit}>
-          <div>
+      <div className="min-h-screen bg-gray-50 p-6">
+        <h1 className="text-3xl text-center">User Management</h1>
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center p-6"
+        >
+          <div className="flex flex-col gap-4 max-w-md mx-auto">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               name="name"
               id="name"
+              className="border p-2 rounded-md"
               placeholder="Enter Note"
               required
             />
@@ -72,6 +76,7 @@ function App() {
               min={0}
               onChange={(e) => setAge(e.target.value)}
               name="age"
+              className="border p-2 rounded-md"
               id="age"
               placeholder="Enter Age"
               required
@@ -82,28 +87,41 @@ function App() {
               onChange={(e) => setEmail(e.target.value)}
               name="email"
               id="email"
+              className="border p-2 rounded-md"
               placeholder="Enter Email"
               required
             />
-            <button>Add New Note</button>
+            <button
+              type="submit"
+              className="font-bold bg-blue-500 text-white p-2 rounded-md cursor-pointer hover:bg-blue-600 transition-colors duration-300"
+            >
+              Add New Note
+            </button>
           </div>
         </form>
-        <table className="table">
-          <thead>
-            <tr>
+        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead className="bg-gray-200">
+            <tr className="text-left">
               <th>Name</th>
               <th>Age</th>
               <th>Email</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-200">
             {data.map((user) => (
-              <tr key={user.id}>
+              <tr key={user.id} className="hover:bg-gray-100 cursor-pointer">
                 <td>{user.name}</td>
                 <td>{user.age}</td>
                 <td>{user.email}</td>
                 <td>Edit</td>
-                <td onClick={() => handleDelete(user.id)}>Delete</td>
+                <td
+                  onClick={() => handleDelete(user.id)}
+                  className="hover:text-red-400"
+                >
+                  Delete
+                </td>
               </tr>
             ))}
           </tbody>
