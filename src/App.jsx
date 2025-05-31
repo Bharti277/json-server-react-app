@@ -51,6 +51,13 @@ function App() {
         setData(filteredData);
       });
   };
+
+  const handleEdit = (id) => {
+    const user = data.find((user) => user.id === id);
+    setName(user.name);
+    setAge(user.age);
+    setEmail(user.email);
+  };
   return (
     <>
       <div className="min-h-screen bg-gray-50 p-6">
@@ -115,7 +122,7 @@ function App() {
                 <td>{user.name}</td>
                 <td>{user.age}</td>
                 <td>{user.email}</td>
-                <td>Edit</td>
+                <td onClick={() => handleEdit(user.id)}>Edit</td>
                 <td
                   onClick={() => handleDelete(user.id)}
                   className="hover:text-red-400"
